@@ -6,6 +6,7 @@ $(document).ready(function() {
   var showConfirmation = $("#show-confirmation");
   var signUpForm = $("#sign-up-form");
   var popUp = $("#pop-up");
+  var errorMessage = $("#error-message");
   var closePopUp = $("#close-pop-up");
 
   signUpForm.submit(function(event){
@@ -15,17 +16,15 @@ $(document).ready(function() {
     let confirmation = $("#confirmation");
 
     if (password.val() !== confirmation.val()) {
-      $(".page-content").css("filter", "blur(5px)");
-      popUp.show();
+      errorMessage.show();
     } else {
-      popUp.hide()
+      errorMessage.hide();
       this.submit();
     }
   })
 
   closePopUp.click(function(){
-    popUp.hide();
-    $(".page-content").css("filter", "blur(0px)");
+    errorMessage.hide();
   });
 
   showPassword.click(function(){

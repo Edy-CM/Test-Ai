@@ -21,19 +21,36 @@
       <%- include('partials/orSeparator') %>
 
       <form action="/login" method="post" class="login-form u-margin-bottom-medium-small u-margin-top-small">
-        <div class="user-input">
-          <input type="email" name="email" id="email" class="user-input__input" autocomplete="off" placeholder=" " required>
-          <label for="email" class="user-input__label"><i class="fa-solid fa-envelope"></i> Email</label>
+        <div class="container">
+          <div class="user-input">
+            <% if (typeof lastEmail !== "undefined") { %>
+              <input type="email" name="email" id="email" class="user-input__input" autocomplete="off" placeholder=" " value='<%= lastEmail %>' required>
+            <% } else { %>
+              <input type="email" name="email" id="email" class="user-input__input" autocomplete="off" placeholder=" " required>
+            <% } %>
+              <label for="email" class="user-input__label"><i class="fa-solid fa-envelope"></i> Email</label>
+          </div>
+          <% if (typeof emailNotFound !== "undefined" && emailNotFound === true) { %>
+            <p class="paragraph u-margin-top-small" style="color: red">That email is not found. Create an account instead.</p>
+          <% } %>
         </div>
-        <div class="user-input">
-          <input type="password" name="password" id="password" class="user-input__input" autocomplete="off" placeholder=" " required>
-          <label for="password" class="user-input__label"><i class="fa-solid fa-lock"></i> Password</label>
-          <button type="button" class="user-input__show" id="show-password"><svg width="15" height="15" viewBox="0 0 59 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 21.7873C3 21.7873 12.6436 2.5 29.52 2.5C46.3964 2.5 56.04 21.7873 56.04 21.7873" stroke="black" stroke-width="4.82182" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M3 21.7873C3 21.7873 12.6436 41.0745 29.52 41.0745C46.3964 41.0745 56.04 21.7873 56.04 21.7873" stroke="black" stroke-width="4.82182" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M29.52 29.02C33.5145 29.02 36.7527 25.7818 36.7527 21.7873C36.7527 17.7927 33.5145 14.5545 29.52 14.5545C25.5255 14.5545 22.2873 17.7927 22.2873 21.7873C22.2873 25.7818 25.5255 29.02 29.52 29.02Z" stroke="black" stroke-width="4.82182" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg></button>
+        
+
+        <div class="container">
+          <div class="user-input">
+            <input type="password" name="password" id="password" class="user-input__input" autocomplete="off" placeholder=" " required>
+            <label for="password" class="user-input__label"><i class="fa-solid fa-lock"></i> Password</label>
+            <button type="button" class="user-input__show" id="show-password"><svg width="15" height="15" viewBox="0 0 59 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 21.7873C3 21.7873 12.6436 2.5 29.52 2.5C46.3964 2.5 56.04 21.7873 56.04 21.7873" stroke="black" stroke-width="4.82182" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3 21.7873C3 21.7873 12.6436 41.0745 29.52 41.0745C46.3964 41.0745 56.04 21.7873 56.04 21.7873" stroke="black" stroke-width="4.82182" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M29.52 29.02C33.5145 29.02 36.7527 25.7818 36.7527 21.7873C36.7527 17.7927 33.5145 14.5545 29.52 14.5545C25.5255 14.5545 22.2873 17.7927 22.2873 21.7873C22.2873 25.7818 25.5255 29.02 29.52 29.02Z" stroke="black" stroke-width="4.82182" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg></button>
+          </div>
+          <% if (typeof passwordNotCorrect !== "undefined" && passwordNotCorrect === true) { %>
+            <p class="paragraph u-margin-top-small" style="color: red">The password is not correct</p>
+          <% } %>
         </div>
+        
         <button type="submit" class="btn btn--large btn--sign">LOG IN</button>
       </form>
 
