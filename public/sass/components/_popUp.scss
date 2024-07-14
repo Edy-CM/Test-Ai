@@ -1,0 +1,36 @@
+.pop-up {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: $color-white;
+  box-shadow: 0px 0px 2rem rgba($color-black, 40%);
+  padding: 2rem 4rem;
+  z-index: 99;
+  border-radius: 2rem;
+
+  hr {
+    position: absolute;
+    left: 0;
+    width: 100%;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    
+    &--text {
+      margin-top: 2rem;
+    }
+
+    &--close {
+      color: red;
+    }
+  }
+}
+
+.show-pop-up {
+  animation: pop-up 0.4s 0s 1 normal ease-in-out forwards;
+} 

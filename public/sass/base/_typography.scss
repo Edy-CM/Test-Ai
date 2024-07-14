@@ -1,0 +1,32 @@
+body {
+  font-family: "Inter", "sans-serif";
+}
+
+hr {
+  color: $hr-color;
+}
+
+a {
+ text-decoration: none; 
+}
+
+.heading-primary {
+  font-size: $heading-primary;
+}
+
+.heading-secondary {
+  font-size: $heading-secondary;
+}
+
+.heading-tertiary {
+  font-size: $heading-tertiary;
+}
+
+.paragraph {
+  font-size: $font-size;
+}
+
+.bold {
+  font-weight: 500;
+}
+

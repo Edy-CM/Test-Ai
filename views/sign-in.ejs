@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/fa4d93c482.js" crossorigin="anonymous"></script>
+    <title>Test AI</title>
+  </head>
+  <body>
+    <main class="page-content">
+      <%- include('partials/authHeader') %>
+      <hr>
+      <section class="sign-up-page ">
+        <%- include('partials/authOptions', { facebookText: "Sign up with facebook account", googleText: "Sign up with google account" })%>
+  
+        <%- include('partials//orSeparator') %>
+  
+        <form id="sign-up-form" action="/create-account" method="POST" class="sign-up-form u-margin-bottom-medium-small">
+          <div class="user-input">
+            <input type="text" name="username" id="username" class="user-input__input" autocomplete="off" placeholder=" " required>
+            <label for="username" class="user-input__label"><i class="fa-solid fa-user"></i> Username</label>
+          </div>
+          <div class="user-input">
+            <input type="email" name="email" id="email" class="user-input__input" autocomplete="off" placeholder=" " required>
+            <label for="email" class="user-input__label"><i class="fa-solid fa-envelope"></i> Email</label>
+          </div>
+          <div class="user-input">
+            <input type="password" name="password" id="password" class="user-input__input user-input__input--password" autocomplete="off" placeholder=" " required>
+            <label for="password" class="user-input__label"><i class="fa-solid fa-lock"></i> Password</label>
+            <button type="button" class="user-input__show" id="show-password"><svg width="15" height="15" viewBox="0 0 59 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 21.7873C3 21.7873 12.6436 2.5 29.52 2.5C46.3964 2.5 56.04 21.7873 56.04 21.7873" stroke="black" stroke-width="4.82182" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3 21.7873C3 21.7873 12.6436 41.0745 29.52 41.0745C46.3964 41.0745 56.04 21.7873 56.04 21.7873" stroke="black" stroke-width="4.82182" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M29.52 29.02C33.5145 29.02 36.7527 25.7818 36.7527 21.7873C36.7527 17.7927 33.5145 14.5545 29.52 14.5545C25.5255 14.5545 22.2873 17.7927 22.2873 21.7873C22.2873 25.7818 25.5255 29.02 29.52 29.02Z" stroke="black" stroke-width="4.82182" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg></button>
+          </div>
+          <div class="user-input">
+            <input type="password" name="confirmation" id="confirmation" class="user-input__input user-input__input--password" autocomplete="off" placeholder=" " required>
+            <label for="confirmation" class="user-input__label"><i class="fa-solid fa-lock"></i> Password Confirmation</label>
+            <button type="button" class="user-input__show" id="show-confirmation"><svg width="15" height="15" viewBox="0 0 59 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 21.7873C3 21.7873 12.6436 2.5 29.52 2.5C46.3964 2.5 56.04 21.7873 56.04 21.7873" stroke="black" stroke-width="4.82182" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3 21.7873C3 21.7873 12.6436 41.0745 29.52 41.0745C46.3964 41.0745 56.04 21.7873 56.04 21.7873" stroke="black" stroke-width="4.82182" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M29.52 29.02C33.5145 29.02 36.7527 25.7818 36.7527 21.7873C36.7527 17.7927 33.5145 14.5545 29.52 14.5545C25.5255 14.5545 22.2873 17.7927 22.2873 21.7873C22.2873 25.7818 25.5255 29.02 29.52 29.02Z" stroke="black" stroke-width="4.82182" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg></button>
+          </div>
+          <button type="submit" class="btn btn--large btn--sign">SIGN UP</button>
+        </form>
+  
+        <hr class="u-margin-bottom-small">
+  
+        <h3 class="paragraph u-margin-bottom-medium-small">ALREADY HAVE AN ACCOUNT?</h3>
+        <a href="/" class="btn btn--large btn--simple">LOG INTO TEST AI</a>
+      </section>
+    </main>
+    
+    <section class="pop-up" id="pop-up">
+      <div class="pop-up__header u-margin-bottom-small">
+        <svg class="pop-up__header--icon" width="70" height="70" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M26.52 4.42C22.149 4.42 17.8762 5.71614 14.2419 8.14452C10.6076 10.5729 7.77497 14.0244 6.10227 18.0627C4.42957 22.1009 3.99192 26.5445 4.84465 30.8315C5.69739 35.1185 7.80221 39.0563 10.8929 42.1471C13.9837 45.2378 17.9215 47.3426 22.2085 48.1954C26.4955 49.0481 30.9391 48.6104 34.9773 46.9377C39.0156 45.265 42.4671 42.4324 44.8955 38.7981C47.3239 35.1638 48.62 30.891 48.62 26.52C48.62 23.6178 48.0484 20.744 46.9377 18.0627C45.8271 15.3814 44.1992 12.9451 42.1471 10.8929C40.0949 8.84076 37.6586 7.21289 34.9773 6.10226C32.296 4.99163 29.4222 4.42 26.52 4.42ZM26.52 44.2C23.0232 44.2 19.605 43.1631 16.6975 41.2204C13.7901 39.2777 11.524 36.5164 10.1858 33.2858C8.84766 30.0552 8.49754 26.5004 9.17973 23.0708C9.86191 19.6412 11.5458 16.4909 14.0184 14.0184C16.491 11.5458 19.6412 9.8619 23.0708 9.17972C26.5004 8.49753 30.0553 8.84765 33.2859 10.1858C36.5164 11.524 39.2777 13.7901 41.2204 16.6975C43.1631 19.605 44.2 23.0232 44.2 26.52C44.2 31.209 42.3373 35.706 39.0217 39.0216C35.706 42.3373 31.209 44.2 26.52 44.2Z" /><path d="M26.52 37.57C27.7406 37.57 28.73 36.5805 28.73 35.36C28.73 34.1394 27.7406 33.15 26.52 33.15C25.2995 33.15 24.31 34.1394 24.31 35.36C24.31 36.5805 25.2995 37.57 26.52 37.57Z" /><path d="M26.52 15.47C25.9339 15.47 25.3718 15.7028 24.9573 16.1173C24.5429 16.5318 24.31 17.0939 24.31 17.68V28.73C24.31 29.3161 24.5429 29.8783 24.9573 30.2927C25.3718 30.7072 25.9339 30.94 26.52 30.94C27.1061 30.94 27.6683 30.7072 28.0827 30.2927C28.4972 29.8783 28.73 29.3161 28.73 28.73V17.68C28.73 17.0939 28.4972 16.5318 28.0827 16.1173C27.6683 15.7028 27.1061 15.47 26.52 15.47Z" /></svg>
+        <h1 class="pop-up__header--text heading-secondary">AN ERROR HAS OCCURRED</h1>
+        <button type="button" id="close-pop-up" class="btn btn--close pop-up__header--close"><svg width="30" height="30" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
+          <path d="M36.6938 14.3459L26.996 24.0437L17.2982 14.3459L14.7979 16.8462L24.4958 26.544L14.7979 36.2419L17.2982 38.7421L26.996 29.0444L36.6938 38.7421L39.1942 36.2419L29.4963 26.544L39.1942 16.8462L36.6938 14.3459Z"/>
+          <path d="M45.2725 8.26753C40.299 3.29406 33.5535 0.5 26.52 0.5C19.4865 0.5 12.741 3.29406 7.76753 8.26753C2.79406 13.241 5.2404e-08 19.9865 0 27.02C-5.2404e-08 34.0535 2.79406 40.799 7.76753 45.7725C12.741 50.7459 19.4865 53.54 26.52 53.54C33.5535 53.54 40.299 50.7459 45.2725 45.7725C50.2459 40.799 53.04 34.0535 53.04 27.02C53.04 19.9865 50.2459 13.241 45.2725 8.26753ZM26.52 50.004C13.8467 50.004 3.53605 39.6933 3.53605 27.02C3.53605 14.3467 13.8467 4.03605 26.52 4.03605C39.1933 4.03605 49.504 14.3467 49.504 27.02C49.504 39.6933 39.1933 50.004 26.52 50.004Z"/>
+          </svg></button>
+      </div>
+      <hr>
+      <p class="heading-tertiary bold u-margin-bottom-small u-margin-top-medium">An error has occurred whilst creating your account!!</p>
+      <p class="paragraph">Verify that you entered both your passwords correctly.</p>
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/signup.js" type="module"></script>
+  </body>
+</html>

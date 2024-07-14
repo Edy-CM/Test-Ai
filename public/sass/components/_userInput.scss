@@ -1,0 +1,68 @@
+.user-input {
+  width: 100%;
+  font-size: $font-size;
+  position: relative;
+  border: 2px solid $color-black;
+  border-radius: 5px;
+  z-index: 4;
+  
+  &:has(.user-input__input:focus) {
+    border-color: $color-primary;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 1rem 2rem;
+    outline: none;
+    transition: all 0.2s;
+    border: none;
+
+    &--password {
+      width: 90%;
+    }
+
+    &:focus ~ .user-input__show {
+      color: $color-primary;
+    }
+
+    &:focus ~ .user-input__label {
+      top: -20%;
+      left: 0px;
+      color: $color-primary;
+      transform: scale(0.7);
+    }
+
+    &:not(:placeholder-shown) ~ .user-input__label {
+      top: -20%;
+      left: 0px;
+      transform: scale(0.7);
+    }
+  }
+
+  &__label {
+    position: absolute;
+    padding: 0px 1rem;
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.2s;
+    background-color: $color-white;
+  }
+
+  &__show {
+    position: absolute;
+    top: 49%;
+    right: 0rem;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    padding: 0.8rem;
+    z-index: 1;
+    transition: all 0.2s;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    &:hover {
+      background-color: darken($color-white, 5%);
+    }
+  }
+}

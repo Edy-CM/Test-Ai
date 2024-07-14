@@ -1,0 +1,76 @@
+.btn {
+  display: inline-block;
+  padding: 0.5rem 2.5rem;
+  font-weight: 500;
+  color: $color-white;
+  border-radius: $border-radius;
+  transition: all 0.2s;
+  border: none;
+  background-color: transparent;
+
+  &--close {
+    position: absolute;
+    top: 3%;
+    right: 2%;
+    padding: 0px;
+
+    &:hover {
+      fill: red;
+      transform: scale(1);
+    }
+  }
+
+  &--simple {
+    text-align: center;
+    font-weight: 700;
+    font-size: $font-size;
+    color: $color-black;
+    border: 1px solid $color-black;
+
+    &:hover {
+      background-color: darken($color-white, 5%);
+    }
+  }
+
+  &--sign {
+    background-color: $color-primary;
+    color: $color-white;
+    font-size: $heading-tertiary;
+
+    &:hover {
+      background-color: darken($color-primary, 15%);
+    }
+  }
+
+  &--large {
+    min-width: $btn-large-size;
+    max-width: $btn-large-size + 5;
+  }
+
+  &--apple {
+    background-color: $color-black;
+
+    &:hover {
+      background-color: lighten($color-black, 12%);
+    }
+  }
+
+  &--facebook {
+    background-color: $color-facebook;
+    &:hover {
+      background-color: darken($color-facebook, 10%);
+    }
+  }
+  
+  &--google {
+    border: 1px solid $color-black;
+    color: $color-black;
+    &:hover {
+      background-color: darken($color-white, 5%);
+    }
+  }
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
