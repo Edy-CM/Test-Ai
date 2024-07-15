@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+      html {
+        font-size: 62.5%;
+      }
+      body {
+        font-family: "Inter", 'sans-serif';
+        padding: 4.5rem;
+        color: #1e1e1e;
+        background-color: #FFFFFF;
+      }
+      main {
+        text-align: left;
+      }
+      .container {
+        box-shadow: 0px 0px 1rem rgba(0, 0, 0, 0.3);
+        padding: 2rem;
+        text-align: center;
+      }
+      h1 {
+        font-size: 1.6rem;
+        font-weight: bold;
+      }
+      p {
+        font-size: 1rem;
+      }
+      a {
+        text-decoration: none;
+        color: #4477CE;
+      }
+      .bold {
+        font-weight: bold;
+      }
+      a.btn {
+        display: inline-block;
+        padding: 1rem 3.5rem;
+        color: white;
+        border: none;
+        border-radius: 50rem;
+        background-color: #4477CE;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <main>
+        <section class="header">
+          <h1>Confirm Your Email Address</h1>
+        </section>
+        <section class="content">
+          <h2>Hi {{name}}!<br>Thank you for registering with TestAI.</h2>
+          <p>To complete your registration and verify your email address, please click the link below:</p>
+          <a class="btn" href="http://localhost:3000/confirmation?key={{authKey}}">Verify Email</a>
+        </section>
+      </main>
+      <section class="footer">
+        <h4>Didn't sign up for TestAI? <a href="#">Let us know</a></h4>
+      </section>
+    </div>
+  </body>
+</html>

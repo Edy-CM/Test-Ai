@@ -5,6 +5,12 @@ import bcrypt from "bcrypt";
 import crypto from "crypto";
 import pkg from "mysql2";
 import nodemailer from "nodemailer";
+import hbs from "nodemailer-express-handlebars";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -13,6 +19,22 @@ const transporter = nodemailer.createTransport({
     pass: process.env.GMAIL_PASSWORD
   }
 });
+
+global.emailData = {};
+
+// Configuring transporter to send template emails
+const handlebarOptions = {
+  viewEngine: {
+    extName: ".hbs",
+    partialsDir: path.resolve(__dirname, 'views'),
+    defaultLayout: false,
+  },
+  viewPath: path.resolve(__dirname, 'views'),
+  extName: ".hbs",
+}
+
+transporter.use("compile", hbs(handlebarOptions))
+let emailData = {}
 
 const mysql = pkg;
 
@@ -25,13 +47,16 @@ const connection = mysql.createPool({
 
 const app = express();
 const port = 3000;
+let logged = false;
 
 app.use(express.static("public"))
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.get("/", (req, res) => {
-  res.redirect("/login");
+  if (logged === false) {
+    res.redirect("/login");
+  }
 });
 
 app.get("/login", (req, res) => {
@@ -44,19 +69,54 @@ app.get("/create-account", (req, res) => {
 })
 
 app.get("/confirmation", async (req, res) => {
-  try {
-    const key = req.query.key;
+  const key = req.query.key || false;
+  const email = req.query.email || false;
+  if (key) {
+    try {
       const searchKey = async(key) => {
       const [results] = await connection.query("SELECT * FROM users WHERE authKey = ?", [key]);
       return results[0];
     }
     const userWithKey = await searchKey(key);
     await connection.execute("UPDATE users SET authKey = '', active = 1 WHERE id = ?", [userWithKey['id']]);
-    res.send("User activated")
-  } catch (err) {
-    res.send("Key not valid");
+    res.redirect("/")
+    } catch (err) {
+      res.render('confirmation.ejs', { authKeyValid: false });
+    }
+  } else if (email) {
+    res.render('confirmation.ejs', { email: email })
+  } else {
+    res.redirect('/login');
   }
 })
+
+app.get("/resend", async(req, res) => {
+  if (emailData['email']) {
+    const mailOptions = {
+      from: process.env.GMAIL_GMAIL,
+      to: emailData['email'],
+      subject: "Verify your Test AI account",
+      template: 'confirmationEmail',
+      context: {
+        name: emailData['name'],
+        authKey: emailData['authKey']
+      }
+    }
+
+    await transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error(error);
+      } else {
+        console.log(info.response)
+      }
+    })
+
+    res.redirect(`/confirmation?email=${emailData['email']}`);
+  } else {
+    res.redirect("/create-account")
+  }
+})
+
 
 app.post("/login", async (req, res) => {
   
@@ -81,21 +141,29 @@ app.post("/login", async (req, res) => {
 app.post('/create-account', async (req, res) => {
   const { username, email, password } = req.body;
 
-  const uniqueToken = crypto.randomBytes(32).toString('hex');
+  const authKey = crypto.randomBytes(32).toString('hex');
+
+  emailData['name'] = username;
+  emailData['email'] = email;
+  emailData['authKey'] = authKey; 
 
   try {
     // Hash the password
     const hash = await bcrypt.hash(password, 13);
 
     // Insert new user into the database
-    await createUser(username, email, hash, uniqueToken);
+    await createUser(username, email, hash, authKey);
 
     // Successful insertion
     const mailOptions = {
       from: process.env.GMAIL_GMAIL,
       to: email,
       subject: "Verify your Test AI account",
-      text: `Hi ${username}\nTo finish setting up your Test AI account, please verify your email address\nhttp://localhost:3000/confirmation?key=${uniqueToken}`
+      template: 'confirmationEmail',
+      context: {
+        name: username,
+        authKey: authKey
+      }
     }
 
     await transporter.sendMail(mailOptions, (error, info) => {
@@ -106,7 +174,7 @@ app.post('/create-account', async (req, res) => {
       }
     })
 
-    res.send('Email of confirmation sent');
+    res.redirect(`/confirmation?email=${email}`);
   } catch (err) {
     // Handle error
     if (err && err.code === 'ER_DUP_ENTRY') {

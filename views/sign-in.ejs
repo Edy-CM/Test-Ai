@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html lang='en'>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/fa4d93c482.js" crossorigin="anonymous"></script>
-    <title>Test AI</title>
-  </head>
-  <body>
+<%- include('partials/header', { pageTitle: "Test AI" })%>
     <main class="page-content">
       <%- include('partials/authHeader') %>
       <hr>
@@ -73,7 +61,4 @@
       <p class="heading-tertiary bold u-margin-bottom-small u-margin-top-medium">An error has occurred whilst creating your account!!</p>
       <p class="paragraph">Verify that you entered both your passwords correctly.</p>
     </section>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="/js/signup.js" type="module"></script>
-  </body>
-</html>
+<%- include('partials/footer', { scriptName: 'signup.js'})%>

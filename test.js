@@ -1,4 +1,7 @@
 import nodemailer from "nodemailer";
+import hbs from "nodemailer-express-handlebars";
+import { fileURLToPath } from "url";
+import path from "path";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -24,3 +27,48 @@ dotenv.config();
 //     console.log("Email sent: " + info.response);
 //   }
 // })
+
+// Setup a transporter to send emails
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.GMAIL_GMAIL,
+    pass: process.env.GMAIL_PASSWORD
+  }
+});
+
+// Configuring transporter to send template emails
+const handlebarOptions = {
+  viewEngine: {
+    extName: ".hbs",
+    partialsDir: path.resolve(__dirname, 'views'),
+    defaultLayout: false,
+  },
+  viewPath: path.resolve(__dirname, 'views'),
+  extName: ".hbs",
+}
+
+transporter.use("compile", hbs(handlebarOptions))
+
+const mailOptions = {
+  from: process.env.GMAIL_GMAIL,
+  to: "aleywin48@gmail.com",
+  subject: "Verify your Test AI account",
+  template: 'confirmation',
+  context: {
+    name: "Edy",
+    authKey: "Test"
+  }
+}
+
+await transporter.sendMail(mailOptions, (error, info) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log(info.response)
+  }
+})
